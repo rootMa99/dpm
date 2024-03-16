@@ -1,9 +1,6 @@
 package com.dpm.dailyPerformanceManagement.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -14,4 +11,6 @@ public class Inventory {
     private Long id;
     private Double real;
     private Double target;
+    @OneToOne(mappedBy = "inventory")
+    private DateData dateData;
 }
