@@ -9,11 +9,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name = "skills")
+@Entity(name = "inventory")
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter @Getter
-public class Skills {
+@Setter
+@Getter
+public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
