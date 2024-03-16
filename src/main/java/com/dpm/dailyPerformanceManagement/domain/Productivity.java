@@ -1,16 +1,23 @@
 package com.dpm.dailyPerformanceManagement.domain;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity(name = "productivity")
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class Productivity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(columnDefinition = "DOUBLE")
     private Double real;
+
+    @Column(columnDefinition = "DOUBLE")
     private Double target;
-    @OneToOne()
-    private DateData dateData;
+/*    @OneToOne(mappedBy = "productivity")
+    private DateData dateData;*/
 }
