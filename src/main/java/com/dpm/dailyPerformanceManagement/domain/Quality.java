@@ -1,9 +1,6 @@
 package com.dpm.dailyPerformanceManagement.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,4 +16,6 @@ public class Quality {
     private Long id;
     private double realValue;
     private double targetValue;
+    @OneToOne(mappedBy = "quality")
+    private DateData dateData;
 }

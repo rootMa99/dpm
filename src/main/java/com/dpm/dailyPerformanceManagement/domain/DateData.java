@@ -18,7 +18,7 @@ public class DateData {
     @Temporal(TemporalType.DATE)
     @Column(name = "date")
     private Date date;
-/*    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "delivery_id" , referencedColumnName = "id")
     private Delivery delivery;
     @OneToOne(cascade = CascadeType.ALL)
@@ -38,5 +38,5 @@ public class DateData {
     private Safety safety;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "skills_id", referencedColumnName = "id")
-    private Skills skills;*/
+    private Skills skills;
 }
