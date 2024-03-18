@@ -9,6 +9,7 @@ import com.dpm.dailyPerformanceManagement.services.MainService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -152,7 +153,46 @@ public class MainServiceImpl implements MainService {
         }
     }
 
+    @Override
     public List<DataRest> getDataBetween(Date startDate, Date endDate){
-        return null;
+        List<DateData> dateData=dateDataRepo.findAllByDateDpmBetween(startDate, endDate);
+        List<DataRest> returnedData= new ArrayList<>();
+        for (DateData dd: dateData){
+            DataRest sr= new DataRest();
+            sr.setDate(dd.getDateDpm());
+            List<DeliveryModel> dms=new ArrayList<>();
+            DeliveryModel dm=new DeliveryModel();
+            dm.setNameData("delivery");
+            dm.setTarget(dd.getDelivery().getTargetValue());
+            dm.setReal(dd.getDelivery().getRealValue());
+            dms.add(dm);
+            dm.setNameData("inventory");
+            dm.setTarget(dd.getInventory().getTargetValue());
+            dm.setReal(dd.getInventory().getRealValue());
+            dms.add(dm);
+            dm.setNameData("kaizen");
+            dm.setTarget(dd.getKaizen().getTargetValue());
+            dm.setReal(dd.getKaizen().getRealValue());
+            dms.add(dm);
+            dm.setNameData("productivity");
+            dm.setTarget(dd.getProductivity().getTargetValue());
+            dm.setReal(dd.getProductivity().getRealValue());
+            dms.add(dm);
+            dm.setNameData("quality");
+            dm.setTarget(dd.getQuality().getTargetValue());
+            dm.setReal(dd.getQuality().getRealValue());
+            dms.add(dm);
+            dm.setNameData("safety");
+            dm.setTarget(dd.getSafety().getTargetValue());
+            dm.setReal(dd.getSafety().getRealValue());
+            dms.add(dm);
+            dm.setNameData("skills");
+            dm.setTarget(dd.getSkills().getTargetValue());
+            dm.setReal(dd.getSkills().getRealValue());
+            dms.add(dm);
+            sr.setDeliveryModels(dms);
+            returnedData.add(sr);
+        }
+        return returnedData;
     }
 }

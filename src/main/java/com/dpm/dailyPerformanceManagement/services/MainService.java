@@ -1,6 +1,10 @@
 package com.dpm.dailyPerformanceManagement.services;
 
+import com.dpm.dailyPerformanceManagement.models.DataRest;
 import com.dpm.dailyPerformanceManagement.models.DeliveryModel;
+
+import java.util.Date;
+import java.util.List;
 
 public interface MainService {
     void addDeliveryData(DeliveryModel dm);
@@ -16,4 +20,6 @@ public interface MainService {
     void addSafety(DeliveryModel dm);
 
     void addSkills(DeliveryModel dm);
+
+    List<DataRest> getDataBetween(Date startDate, Date endDate);
 }
