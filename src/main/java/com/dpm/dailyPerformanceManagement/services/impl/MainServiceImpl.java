@@ -2,6 +2,7 @@ package com.dpm.dailyPerformanceManagement.services.impl;
 
 import com.dpm.dailyPerformanceManagement.domain.DateData;
 import com.dpm.dailyPerformanceManagement.domain.Delivery;
+import com.dpm.dailyPerformanceManagement.domain.Inventory;
 import com.dpm.dailyPerformanceManagement.models.DeliveryModel;
 import com.dpm.dailyPerformanceManagement.repositories.DateDataRepo;
 import com.dpm.dailyPerformanceManagement.repositories.DeliveryRepo;
@@ -30,9 +31,43 @@ public class MainServiceImpl implements MainService {
             Delivery d= new Delivery();
             d.setRealValue(dm.getReal());
             d.setTargetValue(dm.getTarget());
-            d.setDateData(dd);
-            deliveryRepo.save(d);
+            dd.setDelivery(d);
+            dateDataRepo.save(dd);
+        }
+    }
+    public void addInventory(DeliveryModel dm){
+        DateData dd= dateDataRepo.findByDateDpm(dm.getDate());
+        if (dd==null){
+            DateData dd2= new DateData();
+            dd2.setDateDpm(dm.getDate());
+            Inventory inventory=new Inventory();
+            inventory.setRealValue(dm.getReal());
+            inventory.setTargetValue(dm.getTarget());
+            dateDataRepo.save(dd2);
+        }else {
+            Inventory i= new Inventory();
+            i.setRealValue(dm.getReal());
+            i.setTargetValue(dm.getTarget());
+            dd.setInventory(i);
+            dateDataRepo.save(dd);
         }
     }
 
+    public void addKaizen(DeliveryModel dm){
+        DateData dd= dateDataRepo.findByDateDpm(dm.getDate());
+        if (dd==null){
+            DateData dd2= new DateData();
+            dd2.setDateDpm(dm.getDate());
+            Inventory inventory=new Inventory();
+            inventory.setRealValue(dm.getReal());
+            inventory.setTargetValue(dm.getTarget());
+            dateDataRepo.save(dd2);
+        }else {
+            Inventory i= new Inventory();
+            i.setRealValue(dm.getReal());
+            i.setTargetValue(dm.getTarget());
+            dd.setInventory(i);
+            dateDataRepo.save(dd);
+        }
+    }
 }
