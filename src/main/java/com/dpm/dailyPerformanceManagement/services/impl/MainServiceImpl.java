@@ -88,4 +88,58 @@ public class MainServiceImpl implements MainService {
             dateDataRepo.save(dd);
         }
     }
+    public void addQuality(DeliveryModel dm){
+        DateData dd= dateDataRepo.findByDateDpm(dm.getDate());
+        if (dd==null){
+            DateData dd2= new DateData();
+            dd2.setDateDpm(dm.getDate());
+            Quality i=new Quality();
+            i.setRealValue(dm.getReal());
+            i.setTargetValue(dm.getTarget());
+            dd2.setQuality(i);
+            dateDataRepo.save(dd2);
+        }else {
+            Quality i=new Quality();
+            i.setRealValue(dm.getReal());
+            i.setTargetValue(dm.getTarget());
+            dd.setQuality(i);
+            dateDataRepo.save(dd);
+        }
+    }
+    public void addSafety(DeliveryModel dm){
+        DateData dd= dateDataRepo.findByDateDpm(dm.getDate());
+        if (dd==null){
+            DateData dd2= new DateData();
+            dd2.setDateDpm(dm.getDate());
+            Safety i=new Safety();
+            i.setRealValue(dm.getReal());
+            i.setTargetValue(dm.getTarget());
+            dd2.setSafety(i);
+            dateDataRepo.save(dd2);
+        }else {
+            Safety i=new Safety();
+            i.setRealValue(dm.getReal());
+            i.setTargetValue(dm.getTarget());
+            dd.setSafety(i);
+            dateDataRepo.save(dd);
+        }
+    }
+    public void addSkills(DeliveryModel dm){
+        DateData dd= dateDataRepo.findByDateDpm(dm.getDate());
+        if (dd==null){
+            DateData dd2= new DateData();
+            dd2.setDateDpm(dm.getDate());
+            Skills i=new Skills();
+            i.setRealValue(dm.getReal());
+            i.setTargetValue(dm.getTarget());
+            dd2.setSkills(i);
+            dateDataRepo.save(dd2);
+        }else {
+            Skills i=new Skills();
+            i.setRealValue(dm.getReal());
+            i.setTargetValue(dm.getTarget());
+            dd.setSkills(i);
+            dateDataRepo.save(dd);
+        }
+    }
 }
