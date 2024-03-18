@@ -16,5 +16,28 @@ public class MainController {
     public void addDelivery(@RequestBody DeliveryModel deliveryModel){
         mainService.addDeliveryData(deliveryModel);
     }
-
+    @PostMapping(path = "/addInventory")
+    public void addInventory(@RequestBody DeliveryModel deliveryModel){
+        mainService.addInventory(deliveryModel);
+    }
+    @PostMapping(path = "/addKaizen")
+    public void addkaizen(@RequestBody DeliveryModel deliveryModel){
+        mainService.addKaizen(deliveryModel);
+    }
+    @PostMapping(path = "/addProductivity")
+    public void addProductivity(@RequestBody DeliveryModel deliveryModel){
+        mainService.addProductivity(deliveryModel);
+    }
+    @PostMapping(path = "/addQuality")
+    public void addQuality(@RequestBody DeliveryModel deliveryModel){
+        mainService.addQuality(deliveryModel);
+    }
+    @PostMapping(path = "/addSafety")
+    public void addSafety(@RequestBody DeliveryModel deliveryModel){
+        mainService.addSafety(deliveryModel);
+    }
+    @PostMapping(path = "/addSkills")
+    public void addSkills(@RequestBody DeliveryModel deliveryModel){
+        mainService.addSkills(deliveryModel);
+    }
 }
