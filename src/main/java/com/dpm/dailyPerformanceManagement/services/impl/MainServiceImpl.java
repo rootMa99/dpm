@@ -1,12 +1,16 @@
 package com.dpm.dailyPerformanceManagement.services.impl;
 
 import com.dpm.dailyPerformanceManagement.domain.*;
+import com.dpm.dailyPerformanceManagement.models.DataRest;
 import com.dpm.dailyPerformanceManagement.models.DeliveryModel;
 import com.dpm.dailyPerformanceManagement.repositories.DateDataRepo;
 import com.dpm.dailyPerformanceManagement.repositories.DeliveryRepo;
 import com.dpm.dailyPerformanceManagement.services.MainService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -146,5 +150,9 @@ public class MainServiceImpl implements MainService {
             dd.setSkills(i);
             dateDataRepo.save(dd);
         }
+    }
+
+    public List<DataRest> getDataBetween(Date startDate, Date endDate){
+        return null;
     }
 }
