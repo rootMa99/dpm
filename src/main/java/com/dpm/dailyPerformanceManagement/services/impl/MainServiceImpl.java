@@ -1,8 +1,6 @@
 package com.dpm.dailyPerformanceManagement.services.impl;
 
-import com.dpm.dailyPerformanceManagement.domain.DateData;
-import com.dpm.dailyPerformanceManagement.domain.Delivery;
-import com.dpm.dailyPerformanceManagement.domain.Inventory;
+import com.dpm.dailyPerformanceManagement.domain.*;
 import com.dpm.dailyPerformanceManagement.models.DeliveryModel;
 import com.dpm.dailyPerformanceManagement.repositories.DateDataRepo;
 import com.dpm.dailyPerformanceManagement.repositories.DeliveryRepo;
@@ -43,6 +41,7 @@ public class MainServiceImpl implements MainService {
             Inventory inventory=new Inventory();
             inventory.setRealValue(dm.getReal());
             inventory.setTargetValue(dm.getTarget());
+            dd2.setInventory(inventory);
             dateDataRepo.save(dd2);
         }else {
             Inventory i= new Inventory();
@@ -58,15 +57,34 @@ public class MainServiceImpl implements MainService {
         if (dd==null){
             DateData dd2= new DateData();
             dd2.setDateDpm(dm.getDate());
-            Inventory inventory=new Inventory();
-            inventory.setRealValue(dm.getReal());
-            inventory.setTargetValue(dm.getTarget());
-            dateDataRepo.save(dd2);
-        }else {
-            Inventory i= new Inventory();
+            Kaizen i=new Kaizen();
             i.setRealValue(dm.getReal());
             i.setTargetValue(dm.getTarget());
-            dd.setInventory(i);
+            dd2.setKaizen(i);
+            dateDataRepo.save(dd2);
+        }else {
+            Kaizen i=new Kaizen();
+            i.setRealValue(dm.getReal());
+            i.setTargetValue(dm.getTarget());
+            dd.setKaizen(i);
+            dateDataRepo.save(dd);
+        }
+    }
+    public void addProductivity(DeliveryModel dm){
+        DateData dd= dateDataRepo.findByDateDpm(dm.getDate());
+        if (dd==null){
+            DateData dd2= new DateData();
+            dd2.setDateDpm(dm.getDate());
+            Productivity i=new Productivity();
+            i.setRealValue(dm.getReal());
+            i.setTargetValue(dm.getTarget());
+            dd2.setProductivity(i);
+            dateDataRepo.save(dd2);
+        }else {
+            Productivity i=new Productivity();
+            i.setRealValue(dm.getReal());
+            i.setTargetValue(dm.getTarget());
+            dd.setProductivity(i);
             dateDataRepo.save(dd);
         }
     }
