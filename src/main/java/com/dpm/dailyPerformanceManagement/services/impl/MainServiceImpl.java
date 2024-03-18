@@ -33,6 +33,7 @@ public class MainServiceImpl implements MainService {
             dateDataRepo.save(dd);
         }
     }
+    @Override
     public void addInventory(DeliveryModel dm){
         DateData dd= dateDataRepo.findByDateDpm(dm.getDate());
         if (dd==null){
@@ -51,7 +52,7 @@ public class MainServiceImpl implements MainService {
             dateDataRepo.save(dd);
         }
     }
-
+    @Override
     public void addKaizen(DeliveryModel dm){
         DateData dd= dateDataRepo.findByDateDpm(dm.getDate());
         if (dd==null){
@@ -70,6 +71,7 @@ public class MainServiceImpl implements MainService {
             dateDataRepo.save(dd);
         }
     }
+    @Override
     public void addProductivity(DeliveryModel dm){
         DateData dd= dateDataRepo.findByDateDpm(dm.getDate());
         if (dd==null){
@@ -88,6 +90,7 @@ public class MainServiceImpl implements MainService {
             dateDataRepo.save(dd);
         }
     }
+    @Override
     public void addQuality(DeliveryModel dm){
         DateData dd= dateDataRepo.findByDateDpm(dm.getDate());
         if (dd==null){
@@ -106,6 +109,7 @@ public class MainServiceImpl implements MainService {
             dateDataRepo.save(dd);
         }
     }
+    @Override
     public void addSafety(DeliveryModel dm){
         DateData dd= dateDataRepo.findByDateDpm(dm.getDate());
         if (dd==null){
@@ -124,6 +128,7 @@ public class MainServiceImpl implements MainService {
             dateDataRepo.save(dd);
         }
     }
+    @Override
     public void addSkills(DeliveryModel dm){
         DateData dd= dateDataRepo.findByDateDpm(dm.getDate());
         if (dd==null){
