@@ -17,7 +17,7 @@ public class DateData {
     private Long id;
     @Temporal(TemporalType.DATE)
     @Column(name = "date")
-    private Date date;
+    private Date dateDpm;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "delivery_id" , referencedColumnName = "id")
     private Delivery delivery;
