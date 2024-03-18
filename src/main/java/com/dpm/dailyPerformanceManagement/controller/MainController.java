@@ -52,6 +52,6 @@ public class MainController {
     @GetMapping(path = "/dataBetween")
     public List<DataRest> getDataBetween(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
                                          @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate){
-        return null;
+        return mainService.getDataBetween(startDate, endDate);
     }
 }
