@@ -19,4 +19,7 @@ public class Productivity {
     private double targetValue;
     @OneToOne(mappedBy = "productivity")
     private DateData dateData;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ap_id", referencedColumnName = "id")
+    private ActionPlan actionPlan;
 }

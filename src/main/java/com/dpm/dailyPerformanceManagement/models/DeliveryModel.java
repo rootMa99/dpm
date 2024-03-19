@@ -9,4 +9,5 @@ public class DeliveryModel {
     private String nameData;
     private double real;
     private double target;
+
 }

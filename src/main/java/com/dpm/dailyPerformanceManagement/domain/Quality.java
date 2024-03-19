@@ -18,4 +18,7 @@ public class Quality {
     private double targetValue;
     @OneToOne(mappedBy = "quality")
     private DateData dateData;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ap_id", referencedColumnName = "id")
+    private ActionPlan actionPlan;
 }

@@ -18,4 +18,7 @@ public class Skills {
     private double targetValue;
     @OneToOne(mappedBy = "skills")
     private DateData dateData;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ap_id", referencedColumnName = "id")
+    private ActionPlan actionPlan;
 }

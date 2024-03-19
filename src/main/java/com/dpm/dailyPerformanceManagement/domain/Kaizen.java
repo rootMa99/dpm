@@ -19,4 +19,7 @@ public class Kaizen {
     private double targetValue;
     @OneToOne(mappedBy = "kaizen")
     private DateData dateData;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ap_id", referencedColumnName = "id")
+    private ActionPlan actionPlan;
 }
