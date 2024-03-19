@@ -30,7 +30,7 @@ public class MainServiceImpl implements MainService {
             Delivery d= new Delivery();
             d.setRealValue(dm.getReal());
             d.setTargetValue(dm.getTarget());
-            if (dm.getApm().getContermeasures()!=null || dm.getApm().getDueDate()!=null){
+            if (dm.getApm()!=null){
                 d.setActionPlan(getActionPlan(dm));
             }
             dd2.setDelivery(d);
@@ -39,7 +39,7 @@ public class MainServiceImpl implements MainService {
             Delivery d= new Delivery();
             d.setRealValue(dm.getReal());
             d.setTargetValue(dm.getTarget());
-            if (dm.getApm().getContermeasures()!=null || dm.getApm().getDueDate()!=null){
+            if (dm.getApm()!=null){
                 d.setActionPlan(getActionPlan(dm));
             }
             dd.setDelivery(d);
@@ -67,7 +67,7 @@ public class MainServiceImpl implements MainService {
             Inventory inventory=new Inventory();
             inventory.setRealValue(dm.getReal());
             inventory.setTargetValue(dm.getTarget());
-            if (dm.getApm().getContermeasures()!=null || dm.getApm().getDueDate()!=null){
+            if (dm.getApm()!=null){
                 inventory.setActionPlan(getActionPlan(dm));
             }
             dd2.setInventory(inventory);
@@ -76,7 +76,7 @@ public class MainServiceImpl implements MainService {
             Inventory i= new Inventory();
             i.setRealValue(dm.getReal());
             i.setTargetValue(dm.getTarget());
-            if (dm.getApm().getContermeasures()!=null || dm.getApm().getDueDate()!=null){
+            if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
             }
             dd.setInventory(i);
@@ -92,7 +92,7 @@ public class MainServiceImpl implements MainService {
             Kaizen i=new Kaizen();
             i.setRealValue(dm.getReal());
             i.setTargetValue(dm.getTarget());
-            if (dm.getApm().getContermeasures()!=null || dm.getApm().getDueDate()!=null){
+            if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
             }
             dd2.setKaizen(i);
@@ -101,7 +101,7 @@ public class MainServiceImpl implements MainService {
             Kaizen i=new Kaizen();
             i.setRealValue(dm.getReal());
             i.setTargetValue(dm.getTarget());
-            if (dm.getApm().getContermeasures()!=null || dm.getApm().getDueDate()!=null){
+            if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
             }
             dd.setKaizen(i);
@@ -117,7 +117,7 @@ public class MainServiceImpl implements MainService {
             Productivity i=new Productivity();
             i.setRealValue(dm.getReal());
             i.setTargetValue(dm.getTarget());
-            if (dm.getApm().getContermeasures()!=null || dm.getApm().getDueDate()!=null){
+            if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
             }
             dd2.setProductivity(i);
@@ -126,7 +126,7 @@ public class MainServiceImpl implements MainService {
             Productivity i=new Productivity();
             i.setRealValue(dm.getReal());
             i.setTargetValue(dm.getTarget());
-            if (dm.getApm().getContermeasures()!=null || dm.getApm().getDueDate()!=null){
+            if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
             }
             dd.setProductivity(i);
@@ -142,7 +142,7 @@ public class MainServiceImpl implements MainService {
             Quality i=new Quality();
             i.setRealValue(dm.getReal());
             i.setTargetValue(dm.getTarget());
-            if (dm.getApm().getContermeasures()!=null || dm.getApm().getDueDate()!=null){
+            if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
             }
             dd2.setQuality(i);
@@ -151,7 +151,7 @@ public class MainServiceImpl implements MainService {
             Quality i=new Quality();
             i.setRealValue(dm.getReal());
             i.setTargetValue(dm.getTarget());
-            if (dm.getApm().getContermeasures()!=null || dm.getApm().getDueDate()!=null){
+            if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
             }
             dd.setQuality(i);
@@ -167,7 +167,7 @@ public class MainServiceImpl implements MainService {
             Safety i=new Safety();
             i.setRealValue(dm.getReal());
             i.setTargetValue(dm.getTarget());
-            if (dm.getApm().getContermeasures()!=null || dm.getApm().getDueDate()!=null){
+            if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
             }
             dd2.setSafety(i);
@@ -176,7 +176,7 @@ public class MainServiceImpl implements MainService {
             Safety i=new Safety();
             i.setRealValue(dm.getReal());
             i.setTargetValue(dm.getTarget());
-            if (dm.getApm().getContermeasures()!=null || dm.getApm().getDueDate()!=null){
+            if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
             }
             dd.setSafety(i);
@@ -192,7 +192,7 @@ public class MainServiceImpl implements MainService {
             Skills i=new Skills();
             i.setRealValue(dm.getReal());
             i.setTargetValue(dm.getTarget());
-            if (dm.getApm().getContermeasures()!=null || dm.getApm().getDueDate()!=null){
+            if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
             }
             dd2.setSkills(i);
@@ -201,7 +201,7 @@ public class MainServiceImpl implements MainService {
             Skills i=new Skills();
             i.setRealValue(dm.getReal());
             i.setTargetValue(dm.getTarget());
-            if (dm.getApm().getContermeasures()!=null || dm.getApm().getDueDate()!=null){
+            if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
             }
             dd.setSkills(i);
@@ -219,44 +219,122 @@ public class MainServiceImpl implements MainService {
             List<DeliveryModel> dms=new ArrayList<>();
             DeliveryModel dm=new DeliveryModel();
             dm.setNameData("delivery");
-            dm.setTarget(dd.getDelivery().getTargetValue());
-            dm.setReal(dd.getDelivery().getRealValue());
-            ActionPlanModel apm=new ActionPlanModel();
-
+            Delivery dl=dd.getDelivery();
+            dm.setTarget(dl.getTargetValue());
+            dm.setReal(dl.getRealValue());
+            dm.setApm(getActionPlanModel(dl));
             dms.add(dm);
             DeliveryModel dm1=new DeliveryModel();
             dm1.setNameData("inventory");
-            dm1.setTarget(dd.getInventory().getTargetValue());
-            dm1.setReal(dd.getInventory().getRealValue());
+            Inventory i=dd.getInventory();
+            dm1.setTarget(i.getTargetValue());
+            dm1.setReal(i.getRealValue());
+            dm1.setApm(getActionPlanModelIn(i));
             dms.add(dm1);
             DeliveryModel dm2=new DeliveryModel();
             dm2.setNameData("kaizen");
             dm2.setTarget(dd.getKaizen().getTargetValue());
             dm2.setReal(dd.getKaizen().getRealValue());
+            dm2.setApm(getActionPlanModelKai(dd.getKaizen()));
             dms.add(dm2);
             DeliveryModel dm3=new DeliveryModel();
             dm3.setNameData("productivity");
             dm3.setTarget(dd.getProductivity().getTargetValue());
             dm3.setReal(dd.getProductivity().getRealValue());
+            dm3.setApm(getActionPlanModelPro(dd.getProductivity()));
             dms.add(dm3);
             DeliveryModel dm4=new DeliveryModel();
             dm4.setNameData("quality");
             dm4.setTarget(dd.getQuality().getTargetValue());
             dm4.setReal(dd.getQuality().getRealValue());
+            dm4.setApm(getActionPlanModelQ(dd.getQuality()));
             dms.add(dm4);
             DeliveryModel dm5=new DeliveryModel();
             dm5.setNameData("safety");
             dm5.setTarget(dd.getSafety().getTargetValue());
             dm5.setReal(dd.getSafety().getRealValue());
+            dm5.setApm(getActionPlanModelSaf(dd.getSafety()));
             dms.add(dm5);
             DeliveryModel dm6=new DeliveryModel();
             dm6.setNameData("skills");
             dm6.setTarget(dd.getSkills().getTargetValue());
             dm6.setReal(dd.getSkills().getRealValue());
+            dm6.setApm(getActionPlanModelSk(dd.getSkills()));
             dms.add(dm6);
             sr.setDeliveryModels(dms);
             returnedData.add(sr);
         }
         return returnedData;
+    }
+
+    private static ActionPlanModel getActionPlanModel(Delivery dl) {
+        ActionPlanModel apm=new ActionPlanModel();
+        apm.setCauses(dl.getActionPlan().getCauses());
+        apm.setContermeasures(dl.getActionPlan().getContermeasures());
+        apm.setDueDate(dl.getActionPlan().getDueDate());
+        apm.setIssueDescription(dl.getActionPlan().getIssueDescription());
+        apm.setResp(dl.getActionPlan().getResp());
+        apm.setStatus(dl.getActionPlan().getStatus());
+        return apm;
+    }
+    private static ActionPlanModel getActionPlanModelIn(Inventory dl) {
+        ActionPlanModel apm=new ActionPlanModel();
+        apm.setCauses(dl.getActionPlan().getCauses());
+        apm.setContermeasures(dl.getActionPlan().getContermeasures());
+        apm.setDueDate(dl.getActionPlan().getDueDate());
+        apm.setIssueDescription(dl.getActionPlan().getIssueDescription());
+        apm.setResp(dl.getActionPlan().getResp());
+        apm.setStatus(dl.getActionPlan().getStatus());
+        return apm;
+    }
+    private static ActionPlanModel getActionPlanModelKai(Kaizen dl) {
+        ActionPlanModel apm=new ActionPlanModel();
+        apm.setCauses(dl.getActionPlan().getCauses());
+        apm.setContermeasures(dl.getActionPlan().getContermeasures());
+        apm.setDueDate(dl.getActionPlan().getDueDate());
+        apm.setIssueDescription(dl.getActionPlan().getIssueDescription());
+        apm.setResp(dl.getActionPlan().getResp());
+        apm.setStatus(dl.getActionPlan().getStatus());
+        return apm;
+    }
+    private static ActionPlanModel getActionPlanModelPro(Productivity dl) {
+        ActionPlanModel apm=new ActionPlanModel();
+        apm.setCauses(dl.getActionPlan().getCauses());
+        apm.setContermeasures(dl.getActionPlan().getContermeasures());
+        apm.setDueDate(dl.getActionPlan().getDueDate());
+        apm.setIssueDescription(dl.getActionPlan().getIssueDescription());
+        apm.setResp(dl.getActionPlan().getResp());
+        apm.setStatus(dl.getActionPlan().getStatus());
+        return apm;
+    }
+    private static ActionPlanModel getActionPlanModelQ(Quality dl) {
+        ActionPlanModel apm=new ActionPlanModel();
+        apm.setCauses(dl.getActionPlan().getCauses());
+        apm.setContermeasures(dl.getActionPlan().getContermeasures());
+        apm.setDueDate(dl.getActionPlan().getDueDate());
+        apm.setIssueDescription(dl.getActionPlan().getIssueDescription());
+        apm.setResp(dl.getActionPlan().getResp());
+        apm.setStatus(dl.getActionPlan().getStatus());
+        return apm;
+    }
+    private static ActionPlanModel getActionPlanModelSaf(Safety dl) {
+        ActionPlanModel apm=new ActionPlanModel();
+        apm.setCauses(dl.getActionPlan().getCauses());
+        apm.setContermeasures(dl.getActionPlan().getContermeasures());
+        apm.setDueDate(dl.getActionPlan().getDueDate());
+        apm.setIssueDescription(dl.getActionPlan().getIssueDescription());
+        apm.setResp(dl.getActionPlan().getResp());
+        apm.setStatus(dl.getActionPlan().getStatus());
+        return apm;
+    }
+    private static ActionPlanModel getActionPlanModelSk(Skills dl) {
+        ActionPlanModel apm=new ActionPlanModel();
+        apm.setCauses(dl.getActionPlan().getCauses());
+        apm.setContermeasures(dl.getActionPlan().getContermeasures());
+        apm.setDueDate(dl.getActionPlan().getDueDate());
+        apm.setIssueDescription(dl.getActionPlan().getIssueDescription());
+        apm.setResp(dl.getActionPlan().getResp());
+        apm.setStatus(dl.getActionPlan().getStatus());
+        return apm;
     }
 }
