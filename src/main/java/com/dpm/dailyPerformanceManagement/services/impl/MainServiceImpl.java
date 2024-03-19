@@ -1,6 +1,7 @@
 package com.dpm.dailyPerformanceManagement.services.impl;
 
 import com.dpm.dailyPerformanceManagement.domain.*;
+import com.dpm.dailyPerformanceManagement.models.ActionPlanModel;
 import com.dpm.dailyPerformanceManagement.models.DataRest;
 import com.dpm.dailyPerformanceManagement.models.DeliveryModel;
 import com.dpm.dailyPerformanceManagement.repositories.ActionPlanRepo;
@@ -220,6 +221,8 @@ public class MainServiceImpl implements MainService {
             dm.setNameData("delivery");
             dm.setTarget(dd.getDelivery().getTargetValue());
             dm.setReal(dd.getDelivery().getRealValue());
+            ActionPlanModel apm=new ActionPlanModel();
+
             dms.add(dm);
             DeliveryModel dm1=new DeliveryModel();
             dm1.setNameData("inventory");

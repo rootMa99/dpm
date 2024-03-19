@@ -16,6 +16,7 @@ public class ActionPlan {
     private String causes;
     private String contermeasures;
     private String resp;
+    @Temporal(TemporalType.DATE)
     private Date dueDate;
     private String status;
     @OneToOne(mappedBy = "actionPlan")
