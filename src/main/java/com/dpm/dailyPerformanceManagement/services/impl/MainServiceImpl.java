@@ -217,88 +217,79 @@ public class MainServiceImpl implements MainService {
             DataRest sr= new DataRest();
             sr.setDate(dd.getDateDpm());
             List<DeliveryModel> dms=new ArrayList<>();
-
+            DeliveryModel dm=new DeliveryModel();
+            dm.setNameData("delivery");
             if (dd.getDelivery()!=null){
-                DeliveryModel dm=new DeliveryModel();
-                dm.setNameData("delivery");
                 Delivery dl=dd.getDelivery();
                 dm.setTarget(dl.getTargetValue());
                 dm.setReal(dl.getRealValue());
                 if (dl.getActionPlan()!=null){
                     dm.setApm(getActionPlanModel(dl.getActionPlan()));
                 }
-                dms.add(dm);
-
             }
-
+            dms.add(dm);
+            DeliveryModel dm1=new DeliveryModel();
+            dm1.setNameData("inventory");
             if (dd.getInventory()!=null){
-                DeliveryModel dm1=new DeliveryModel();
-                dm1.setNameData("inventory");
                 Inventory i=dd.getInventory();
                 dm1.setTarget(i.getTargetValue());
                 dm1.setReal(i.getRealValue());
                 if (i.getActionPlan()!=null){
                     dm1.setApm(getActionPlanModel(i.getActionPlan()));
                 }
-                dms.add(dm1);
-
             }
-
+            dms.add(dm1);
+            DeliveryModel dm2=new DeliveryModel();
+            dm2.setNameData("kaizen");
             if (dd.getKaizen()!=null){
-                DeliveryModel dm2=new DeliveryModel();
-                dm2.setNameData("kaizen");
                 dm2.setTarget(dd.getKaizen().getTargetValue());
                 dm2.setReal(dd.getKaizen().getRealValue());
                 if (dd.getKaizen().getActionPlan()!=null){
                     dm2.setApm(getActionPlanModel(dd.getKaizen().getActionPlan()));
                 }
-                dms.add(dm2);
             }
-
-
+            dms.add(dm2);
+            DeliveryModel dm3=new DeliveryModel();
+            dm3.setNameData("productivity");
             if (dd.getProductivity()!=null){
-                DeliveryModel dm3=new DeliveryModel();
-                dm3.setNameData("productivity");
                 dm3.setTarget(dd.getProductivity().getTargetValue());
                 dm3.setReal(dd.getProductivity().getRealValue());
                 if (dd.getProductivity().getActionPlan()!=null){
                     dm3.setApm(getActionPlanModel(dd.getProductivity().getActionPlan()));
                 }
-                dms.add(dm3);
             }
-
+            dms.add(dm3);
+            DeliveryModel dm4=new DeliveryModel();
+            dm4.setNameData("quality");
             if (dd.getQuality()!=null){
-                DeliveryModel dm4=new DeliveryModel();
-                dm4.setNameData("quality");
                 dm4.setTarget(dd.getQuality().getTargetValue());
                 dm4.setReal(dd.getQuality().getRealValue());
                 if (dd.getQuality().getActionPlan()!=null){
                     dm4.setApm(getActionPlanModel(dd.getQuality().getActionPlan()));
                 }
-                dms.add(dm4);
             }
-
+            dms.add(dm4);
+            DeliveryModel dm5=new DeliveryModel();
+            dm5.setNameData("safety");
             if (dd.getSafety()!=null){
-                DeliveryModel dm5=new DeliveryModel();
-                dm5.setNameData("safety");
                 dm5.setTarget(dd.getSafety().getTargetValue());
                 dm5.setReal(dd.getSafety().getRealValue());
                 if (dd.getSafety().getActionPlan()!=null){
                     dm5.setApm(getActionPlanModel(dd.getSafety().getActionPlan()));
                 }
-                dms.add(dm5);
             }
-
+            dms.add(dm5);
+            DeliveryModel dm6=new DeliveryModel();
+            dm6.setNameData("skills");
             if (dd.getSkills()!=null){
-                DeliveryModel dm6=new DeliveryModel();
-                dm6.setNameData("skills");
                 dm6.setTarget(dd.getSkills().getTargetValue());
                 dm6.setReal(dd.getSkills().getRealValue());
                 if (dd.getSkills().getActionPlan()!=null){
                     dm6.setApm(getActionPlanModel(dd.getSkills().getActionPlan()));
                 }
-                dms.add(dm6);
             }
+
+            dms.add(dm6);
             sr.setDeliveryModels(dms);
             returnedData.add(sr);
         }
