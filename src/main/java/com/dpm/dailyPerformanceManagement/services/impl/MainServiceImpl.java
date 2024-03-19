@@ -263,7 +263,7 @@ public class MainServiceImpl implements MainService {
             dm5.setNameData("safety");
             dm5.setTarget(dd.getSafety().getTargetValue());
             dm5.setReal(dd.getSafety().getRealValue());
-            if (dd.getSafety()!=null){
+            if (dd.getSafety().getActionPlan()!=null){
                 dm5.setApm(getActionPlanModel(dd.getSafety().getActionPlan()));
             }
             dms.add(dm5);
@@ -271,7 +271,7 @@ public class MainServiceImpl implements MainService {
             dm6.setNameData("skills");
             dm6.setTarget(dd.getSkills().getTargetValue());
             dm6.setReal(dd.getSkills().getRealValue());
-            if (dd.getSkills()!=null){
+            if (dd.getSkills().getActionPlan()!=null){
                 dm6.setApm(getActionPlanModel(dd.getSkills().getActionPlan()));
             }
             dms.add(dm6);
