@@ -3,6 +3,7 @@ package com.dpm.dailyPerformanceManagement.services.impl;
 import com.dpm.dailyPerformanceManagement.domain.*;
 import com.dpm.dailyPerformanceManagement.models.DataRest;
 import com.dpm.dailyPerformanceManagement.models.DeliveryModel;
+import com.dpm.dailyPerformanceManagement.repositories.ActionPlanRepo;
 import com.dpm.dailyPerformanceManagement.repositories.DateDataRepo;
 import com.dpm.dailyPerformanceManagement.repositories.DeliveryRepo;
 import com.dpm.dailyPerformanceManagement.services.MainService;
@@ -18,7 +19,7 @@ import java.util.List;
 public class MainServiceImpl implements MainService {
     DateDataRepo dateDataRepo;
     DeliveryRepo deliveryRepo;
-
+    ActionPlanRepo actionPlanRepo;
     @Override
     public void addDeliveryData(DeliveryModel dm){
         DateData dd= dateDataRepo.findByDateDpm(dm.getDate());
@@ -28,16 +29,34 @@ public class MainServiceImpl implements MainService {
             Delivery d= new Delivery();
             d.setRealValue(dm.getReal());
             d.setTargetValue(dm.getTarget());
+            if (dm.getApm().getContermeasures()!=null || dm.getApm().getDueDate()!=null){
+                d.setActionPlan(getActionPlan(dm));
+            }
             dd2.setDelivery(d);
             dateDataRepo.save(dd2);
         }else {
             Delivery d= new Delivery();
             d.setRealValue(dm.getReal());
             d.setTargetValue(dm.getTarget());
+            if (dm.getApm().getContermeasures()!=null || dm.getApm().getDueDate()!=null){
+                d.setActionPlan(getActionPlan(dm));
+            }
             dd.setDelivery(d);
             dateDataRepo.save(dd);
         }
     }
+
+    private ActionPlan getActionPlan(DeliveryModel dm) {
+        ActionPlan ap=new ActionPlan();
+        ap.setIssueDescription(dm.getApm().getIssueDescription());
+        ap.setCauses(dm.getApm().getCauses());
+        ap.setContermeasures(dm.getApm().getContermeasures());
+        ap.setResp(dm.getApm().getResp());
+        ap.setDueDate(dm.getApm().getDueDate());
+        ap.setStatus(dm.getApm().getStatus());
+        return actionPlanRepo.save(ap);
+    }
+
     @Override
     public void addInventory(DeliveryModel dm){
         DateData dd= dateDataRepo.findByDateDpm(dm.getDate());
@@ -47,12 +66,18 @@ public class MainServiceImpl implements MainService {
             Inventory inventory=new Inventory();
             inventory.setRealValue(dm.getReal());
             inventory.setTargetValue(dm.getTarget());
+            if (dm.getApm().getContermeasures()!=null || dm.getApm().getDueDate()!=null){
+                inventory.setActionPlan(getActionPlan(dm));
+            }
             dd2.setInventory(inventory);
             dateDataRepo.save(dd2);
         }else {
             Inventory i= new Inventory();
             i.setRealValue(dm.getReal());
             i.setTargetValue(dm.getTarget());
+            if (dm.getApm().getContermeasures()!=null || dm.getApm().getDueDate()!=null){
+                i.setActionPlan(getActionPlan(dm));
+            }
             dd.setInventory(i);
             dateDataRepo.save(dd);
         }
@@ -66,12 +91,18 @@ public class MainServiceImpl implements MainService {
             Kaizen i=new Kaizen();
             i.setRealValue(dm.getReal());
             i.setTargetValue(dm.getTarget());
+            if (dm.getApm().getContermeasures()!=null || dm.getApm().getDueDate()!=null){
+                i.setActionPlan(getActionPlan(dm));
+            }
             dd2.setKaizen(i);
             dateDataRepo.save(dd2);
         }else {
             Kaizen i=new Kaizen();
             i.setRealValue(dm.getReal());
             i.setTargetValue(dm.getTarget());
+            if (dm.getApm().getContermeasures()!=null || dm.getApm().getDueDate()!=null){
+                i.setActionPlan(getActionPlan(dm));
+            }
             dd.setKaizen(i);
             dateDataRepo.save(dd);
         }
@@ -85,12 +116,18 @@ public class MainServiceImpl implements MainService {
             Productivity i=new Productivity();
             i.setRealValue(dm.getReal());
             i.setTargetValue(dm.getTarget());
+            if (dm.getApm().getContermeasures()!=null || dm.getApm().getDueDate()!=null){
+                i.setActionPlan(getActionPlan(dm));
+            }
             dd2.setProductivity(i);
             dateDataRepo.save(dd2);
         }else {
             Productivity i=new Productivity();
             i.setRealValue(dm.getReal());
             i.setTargetValue(dm.getTarget());
+            if (dm.getApm().getContermeasures()!=null || dm.getApm().getDueDate()!=null){
+                i.setActionPlan(getActionPlan(dm));
+            }
             dd.setProductivity(i);
             dateDataRepo.save(dd);
         }
@@ -104,12 +141,18 @@ public class MainServiceImpl implements MainService {
             Quality i=new Quality();
             i.setRealValue(dm.getReal());
             i.setTargetValue(dm.getTarget());
+            if (dm.getApm().getContermeasures()!=null || dm.getApm().getDueDate()!=null){
+                i.setActionPlan(getActionPlan(dm));
+            }
             dd2.setQuality(i);
             dateDataRepo.save(dd2);
         }else {
             Quality i=new Quality();
             i.setRealValue(dm.getReal());
             i.setTargetValue(dm.getTarget());
+            if (dm.getApm().getContermeasures()!=null || dm.getApm().getDueDate()!=null){
+                i.setActionPlan(getActionPlan(dm));
+            }
             dd.setQuality(i);
             dateDataRepo.save(dd);
         }
@@ -123,12 +166,18 @@ public class MainServiceImpl implements MainService {
             Safety i=new Safety();
             i.setRealValue(dm.getReal());
             i.setTargetValue(dm.getTarget());
+            if (dm.getApm().getContermeasures()!=null || dm.getApm().getDueDate()!=null){
+                i.setActionPlan(getActionPlan(dm));
+            }
             dd2.setSafety(i);
             dateDataRepo.save(dd2);
         }else {
             Safety i=new Safety();
             i.setRealValue(dm.getReal());
             i.setTargetValue(dm.getTarget());
+            if (dm.getApm().getContermeasures()!=null || dm.getApm().getDueDate()!=null){
+                i.setActionPlan(getActionPlan(dm));
+            }
             dd.setSafety(i);
             dateDataRepo.save(dd);
         }
@@ -142,12 +191,18 @@ public class MainServiceImpl implements MainService {
             Skills i=new Skills();
             i.setRealValue(dm.getReal());
             i.setTargetValue(dm.getTarget());
+            if (dm.getApm().getContermeasures()!=null || dm.getApm().getDueDate()!=null){
+                i.setActionPlan(getActionPlan(dm));
+            }
             dd2.setSkills(i);
             dateDataRepo.save(dd2);
         }else {
             Skills i=new Skills();
             i.setRealValue(dm.getReal());
             i.setTargetValue(dm.getTarget());
+            if (dm.getApm().getContermeasures()!=null || dm.getApm().getDueDate()!=null){
+                i.setActionPlan(getActionPlan(dm));
+            }
             dd.setSkills(i);
             dateDataRepo.save(dd);
         }
