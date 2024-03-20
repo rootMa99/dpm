@@ -1,18 +1,17 @@
 package com.dpm.dailyPerformanceManagement.services.impl;
 
 import com.dpm.dailyPerformanceManagement.domain.*;
-import com.dpm.dailyPerformanceManagement.models.ActionPlanModel;
-import com.dpm.dailyPerformanceManagement.models.DataRest;
-import com.dpm.dailyPerformanceManagement.models.DeliveryModel;
-import com.dpm.dailyPerformanceManagement.models.ParetoModel;
-import com.dpm.dailyPerformanceManagement.repositories.ActionPlanRepo;
-import com.dpm.dailyPerformanceManagement.repositories.DateDataRepo;
-import com.dpm.dailyPerformanceManagement.repositories.DeliveryRepo;
-import com.dpm.dailyPerformanceManagement.repositories.ParetoRepo;
+import com.dpm.dailyPerformanceManagement.models.*;
+import com.dpm.dailyPerformanceManagement.repositories.*;
 import com.dpm.dailyPerformanceManagement.services.MainService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,6 +19,9 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class MainServiceImpl implements MainService {
+    Utils utils;
+    KpiOwnerRepo kpiOwnerRepo;
+    FilesRepo filesRepo;
     DateDataRepo dateDataRepo;
     DeliveryRepo deliveryRepo;
     ActionPlanRepo actionPlanRepo;
@@ -549,7 +551,71 @@ public class MainServiceImpl implements MainService {
         apm.setStatus(actionPlan.getStatus());
         return apm;
     }
+    @Override
+    public Files getFileByFileId(String fileId) throws FileNotFoundException {
+        Files fe=filesRepo.findByFileId(fileId);
+        if (fe ==null){
+            throw new FileNotFoundException("File not found with id " + fileId);
+        }
+        return fe;
+    }
+
+    @Override
+    public Files uploadFile(MultipartFile file) throws IOException {
+
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        try {
+
+            if (fileName.contains("..")) {
+                throw new IOException("File Name Contain A Invalid Path Sequence");
+            }
+
+            String fileId = utils.generateProjectId(22);
+            String fileDownloadUri =
+                    ServletUriComponentsBuilder.fromCurrentContextPath().path("/dpm").path("/downloadFile/").path(fileId).toUriString();
+
+            return new Files(fileId, fileName, file.getContentType(), file.getBytes(),
+                    fileDownloadUri);
+        } catch (
+                Exception e
+        ) {
+            throw new IOException("Could not store file " + fileName + ". Please try again!");
+        }
+    }
+
+    @Override
+    public void addKpiOwner(String kpiOwn, String name, String coName, MultipartFile file) throws IOException {
+        Files fileEntity= uploadFile(file);
+        String fileDownloadUri =
+                ServletUriComponentsBuilder.fromCurrentContextPath().path("/dpm").path("/downloadFile/").path(
+                        kpiOwn).toUriString();
+        fileEntity.setFileDownloadUri(fileDownloadUri);
+        fileEntity.setFileName(name);
+        fileEntity.setFileId(kpiOwn);
+        KpiOwner kpiOwner=new KpiOwner();
+        kpiOwner.setKpiOwn(kpiOwn);
+        kpiOwner.setName(name);
+        kpiOwner.setCoName(coName);
+        kpiOwner=kpiOwnerRepo.save(kpiOwner);
+        fileEntity.setKpiOwner(kpiOwner);
+        filesRepo.save(fileEntity);
+    }
 
 
+    @Override
+    public List<KpiRest> getAllKpiOwner(){
+        List<KpiOwner> kpiOwners=kpiOwnerRepo.findAll();
+        List<KpiRest> kpiRests =new ArrayList<>();
 
+        for (KpiOwner ko: kpiOwners){
+            KpiRest kr=new KpiRest();
+            kr.setName(ko.getName());
+            kr.setUri(ko.getFiles().getFileDownloadUri());
+            kr.setKpiOwn(ko.getKpiOwn());
+            kr.setCoName(ko.getCoName());
+            kpiRests.add(kr);
+        }
+
+        return kpiRests;
+    }
 }
