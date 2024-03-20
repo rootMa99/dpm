@@ -36,13 +36,23 @@ public class MainServiceImpl implements MainService {
             if (dm.getApm()!=null){
                 d.setActionPlan(getActionPlan(dm));
             }
+            dd2.setDelivery(d);
+            dd=dateDataRepo.save(dd2);
             if (dm.getParetoModels()!=null ){
                 if (!dm.getParetoModels().isEmpty()){
-                    d.setParetos(getParetos(dm));
+                   /* d.setParetos(getParetos(dm));*/
+                    List<Pareto> paretoList=new ArrayList<>();
+                    for (ParetoModel pm: dm.getParetoModels() ){
+                        Pareto p=new Pareto();
+                        p.setMotif(pm.getMotif());
+                        p.setPercentage(pm.getPercentage());
+                        p.setDelivery(dd.getDelivery());
+                        paretoList.add(p);
+                    }
+                    paretoRepo.saveAll(paretoList);
                 }
             }
-            dd2.setDelivery(d);
-            dateDataRepo.save(dd2);
+
         }else {
             Delivery d= new Delivery();
             d.setRealValue(dm.getReal());
@@ -50,17 +60,26 @@ public class MainServiceImpl implements MainService {
             if (dm.getApm()!=null){
                 d.setActionPlan(getActionPlan(dm));
             }
+            dd.setDelivery(d);
+            dd=dateDataRepo.save(dd);
             if (dm.getParetoModels()!=null ){
                 if (!dm.getParetoModels().isEmpty()){
-                    d.setParetos(getParetos(dm));
+                    /* d.setParetos(getParetos(dm));*/
+                    List<Pareto> paretoList=new ArrayList<>();
+                    for (ParetoModel pm: dm.getParetoModels() ){
+                        Pareto p=new Pareto();
+                        p.setMotif(pm.getMotif());
+                        p.setPercentage(pm.getPercentage());
+                        p.setDelivery(dd.getDelivery());
+                        paretoList.add(p);
+                    }
+                    paretoRepo.saveAll(paretoList);
                 }
             }
-            dd.setDelivery(d);
-            dateDataRepo.save(dd);
         }
     }
 
-    private List<Pareto> getParetos(DeliveryModel dm) {
+ /*   private List<Pareto> getParetos(DeliveryModel dm) {
         List<Pareto> paretoList=new ArrayList<>();
         for (ParetoModel pm: dm.getParetoModels() ){
             Pareto p=new Pareto();
@@ -69,7 +88,7 @@ public class MainServiceImpl implements MainService {
             paretoList.add(paretoRepo.save(p));
         }
         return paretoList;
-    }
+    }*/
 
     private ActionPlan getActionPlan(DeliveryModel dm) {
         ActionPlan ap=new ActionPlan();
@@ -94,13 +113,23 @@ public class MainServiceImpl implements MainService {
             if (dm.getApm()!=null){
                 inventory.setActionPlan(getActionPlan(dm));
             }
+
+            dd2.setInventory(inventory);
+            dd= dateDataRepo.save(dd2);
             if (dm.getParetoModels()!=null ){
                 if (!dm.getParetoModels().isEmpty()){
-                    inventory.setParetos(getParetos(dm));
+                    /* d.setParetos(getParetos(dm));*/
+                    List<Pareto> paretoList=new ArrayList<>();
+                    for (ParetoModel pm: dm.getParetoModels() ){
+                        Pareto p=new Pareto();
+                        p.setMotif(pm.getMotif());
+                        p.setPercentage(pm.getPercentage());
+                        p.setInventory(dd.getInventory());
+                        paretoList.add(p);
+                    }
+                    paretoRepo.saveAll(paretoList);
                 }
             }
-            dd2.setInventory(inventory);
-            dateDataRepo.save(dd2);
         }else {
             Inventory i= new Inventory();
             i.setRealValue(dm.getReal());
@@ -108,13 +137,22 @@ public class MainServiceImpl implements MainService {
             if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
             }
+            dd.setInventory(i);
+            dd=dateDataRepo.save(dd);
             if (dm.getParetoModels()!=null ){
                 if (!dm.getParetoModels().isEmpty()){
-                    i.setParetos(getParetos(dm));
+                    /* d.setParetos(getParetos(dm));*/
+                    List<Pareto> paretoList=new ArrayList<>();
+                    for (ParetoModel pm: dm.getParetoModels() ){
+                        Pareto p=new Pareto();
+                        p.setMotif(pm.getMotif());
+                        p.setPercentage(pm.getPercentage());
+                        p.setInventory(dd.getInventory());
+                        paretoList.add(p);
+                    }
+                    paretoRepo.saveAll(paretoList);
                 }
             }
-            dd.setInventory(i);
-            dateDataRepo.save(dd);
         }
     }
     @Override
@@ -129,13 +167,22 @@ public class MainServiceImpl implements MainService {
             if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
             }
+            dd2.setKaizen(i);
+            dd=dateDataRepo.save(dd2);
             if (dm.getParetoModels()!=null ){
                 if (!dm.getParetoModels().isEmpty()){
-                    i.setParetos(getParetos(dm));
+                    /* d.setParetos(getParetos(dm));*/
+                    List<Pareto> paretoList=new ArrayList<>();
+                    for (ParetoModel pm: dm.getParetoModels() ){
+                        Pareto p=new Pareto();
+                        p.setMotif(pm.getMotif());
+                        p.setPercentage(pm.getPercentage());
+                        p.setKaizen(dd.getKaizen());
+                        paretoList.add(p);
+                    }
+                    paretoRepo.saveAll(paretoList);
                 }
             }
-            dd2.setKaizen(i);
-            dateDataRepo.save(dd2);
         }else {
             Kaizen i=new Kaizen();
             i.setRealValue(dm.getReal());
@@ -143,13 +190,22 @@ public class MainServiceImpl implements MainService {
             if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
             }
+            dd.setKaizen(i);
+            dd=dateDataRepo.save(dd);
             if (dm.getParetoModels()!=null ){
                 if (!dm.getParetoModels().isEmpty()){
-                    i.setParetos(getParetos(dm));
+                    /* d.setParetos(getParetos(dm));*/
+                    List<Pareto> paretoList=new ArrayList<>();
+                    for (ParetoModel pm: dm.getParetoModels() ){
+                        Pareto p=new Pareto();
+                        p.setMotif(pm.getMotif());
+                        p.setPercentage(pm.getPercentage());
+                        p.setKaizen(dd.getKaizen());
+                        paretoList.add(p);
+                    }
+                    paretoRepo.saveAll(paretoList);
                 }
             }
-            dd.setKaizen(i);
-            dateDataRepo.save(dd);
         }
     }
     @Override
@@ -164,13 +220,22 @@ public class MainServiceImpl implements MainService {
             if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
             }
+            dd2.setProductivity(i);
+            dd=dateDataRepo.save(dd2);
             if (dm.getParetoModels()!=null ){
                 if (!dm.getParetoModels().isEmpty()){
-                    i.setParetos(getParetos(dm));
+                    /* d.setParetos(getParetos(dm));*/
+                    List<Pareto> paretoList=new ArrayList<>();
+                    for (ParetoModel pm: dm.getParetoModels() ){
+                        Pareto p=new Pareto();
+                        p.setMotif(pm.getMotif());
+                        p.setPercentage(pm.getPercentage());
+                        p.setProductivity(dd.getProductivity());
+                        paretoList.add(p);
+                    }
+                    paretoRepo.saveAll(paretoList);
                 }
             }
-            dd2.setProductivity(i);
-            dateDataRepo.save(dd2);
         }else {
             Productivity i=new Productivity();
             i.setRealValue(dm.getReal());
@@ -178,13 +243,22 @@ public class MainServiceImpl implements MainService {
             if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
             }
+            dd.setProductivity(i);
+            dd=dateDataRepo.save(dd);
             if (dm.getParetoModels()!=null ){
                 if (!dm.getParetoModels().isEmpty()){
-                    i.setParetos(getParetos(dm));
+                    /* d.setParetos(getParetos(dm));*/
+                    List<Pareto> paretoList=new ArrayList<>();
+                    for (ParetoModel pm: dm.getParetoModels() ){
+                        Pareto p=new Pareto();
+                        p.setMotif(pm.getMotif());
+                        p.setPercentage(pm.getPercentage());
+                        p.setProductivity(dd.getProductivity());
+                        paretoList.add(p);
+                    }
+                    paretoRepo.saveAll(paretoList);
                 }
             }
-            dd.setProductivity(i);
-            dateDataRepo.save(dd);
         }
     }
     @Override
@@ -199,13 +273,22 @@ public class MainServiceImpl implements MainService {
             if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
             }
+            dd2.setQuality(i);
+            dd=dateDataRepo.save(dd2);
             if (dm.getParetoModels()!=null ){
                 if (!dm.getParetoModels().isEmpty()){
-                    i.setParetos(getParetos(dm));
+                    /* d.setParetos(getParetos(dm));*/
+                    List<Pareto> paretoList=new ArrayList<>();
+                    for (ParetoModel pm: dm.getParetoModels() ){
+                        Pareto p=new Pareto();
+                        p.setMotif(pm.getMotif());
+                        p.setPercentage(pm.getPercentage());
+                        p.setQuality(dd.getQuality());
+                        paretoList.add(p);
+                    }
+                    paretoRepo.saveAll(paretoList);
                 }
             }
-            dd2.setQuality(i);
-            dateDataRepo.save(dd2);
         }else {
             Quality i=new Quality();
             i.setRealValue(dm.getReal());
@@ -213,13 +296,23 @@ public class MainServiceImpl implements MainService {
             if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
             }
+
+            dd.setQuality(i);
+            dd=dateDataRepo.save(dd);
             if (dm.getParetoModels()!=null ){
                 if (!dm.getParetoModels().isEmpty()){
-                    i.setParetos(getParetos(dm));
+                    /* d.setParetos(getParetos(dm));*/
+                    List<Pareto> paretoList=new ArrayList<>();
+                    for (ParetoModel pm: dm.getParetoModels() ){
+                        Pareto p=new Pareto();
+                        p.setMotif(pm.getMotif());
+                        p.setPercentage(pm.getPercentage());
+                        p.setQuality(dd.getQuality());
+                        paretoList.add(p);
+                    }
+                    paretoRepo.saveAll(paretoList);
                 }
             }
-            dd.setQuality(i);
-            dateDataRepo.save(dd);
         }
     }
     @Override
@@ -234,13 +327,24 @@ public class MainServiceImpl implements MainService {
             if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
             }
+
+            dd2.setSafety(i);
+            dd=dateDataRepo.save(dd2);
             if (dm.getParetoModels()!=null ){
                 if (!dm.getParetoModels().isEmpty()){
-                    i.setParetos(getParetos(dm));
+                    /* d.setParetos(getParetos(dm));*/
+                    List<Pareto> paretoList=new ArrayList<>();
+                    for (ParetoModel pm: dm.getParetoModels() ){
+                        Pareto p=new Pareto();
+                        p.setMotif(pm.getMotif());
+                        p.setPercentage(pm.getPercentage());
+                        p.setSafety(dd.getSafety());
+                        paretoList.add(p);
+                    }
+                    paretoRepo.saveAll(paretoList);
                 }
             }
-            dd2.setSafety(i);
-            dateDataRepo.save(dd2);
+
         }else {
             Safety i=new Safety();
             i.setRealValue(dm.getReal());
@@ -248,13 +352,23 @@ public class MainServiceImpl implements MainService {
             if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
             }
+
+            dd.setSafety(i);
+            dd=dateDataRepo.save(dd);
             if (dm.getParetoModels()!=null ){
                 if (!dm.getParetoModels().isEmpty()){
-                    i.setParetos(getParetos(dm));
+                    /* d.setParetos(getParetos(dm));*/
+                    List<Pareto> paretoList=new ArrayList<>();
+                    for (ParetoModel pm: dm.getParetoModels() ){
+                        Pareto p=new Pareto();
+                        p.setMotif(pm.getMotif());
+                        p.setPercentage(pm.getPercentage());
+                        p.setSafety(dd.getSafety());
+                        paretoList.add(p);
+                    }
+                    paretoRepo.saveAll(paretoList);
                 }
             }
-            dd.setSafety(i);
-            dateDataRepo.save(dd);
         }
     }
     @Override
@@ -269,13 +383,23 @@ public class MainServiceImpl implements MainService {
             if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
             }
+
+            dd2.setSkills(i);
+            dd=dateDataRepo.save(dd2);
             if (dm.getParetoModels()!=null ){
                 if (!dm.getParetoModels().isEmpty()){
-                    i.setParetos(getParetos(dm));
+                    /* d.setParetos(getParetos(dm));*/
+                    List<Pareto> paretoList=new ArrayList<>();
+                    for (ParetoModel pm: dm.getParetoModels() ){
+                        Pareto p=new Pareto();
+                        p.setMotif(pm.getMotif());
+                        p.setPercentage(pm.getPercentage());
+                        p.setSkills(dd.getSkills());
+                        paretoList.add(p);
+                    }
+                    paretoRepo.saveAll(paretoList);
                 }
             }
-            dd2.setSkills(i);
-            dateDataRepo.save(dd2);
         }else {
             Skills i=new Skills();
             i.setRealValue(dm.getReal());
@@ -283,13 +407,22 @@ public class MainServiceImpl implements MainService {
             if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
             }
+            dd.setSkills(i);
+            dd=dateDataRepo.save(dd);
             if (dm.getParetoModels()!=null ){
                 if (!dm.getParetoModels().isEmpty()){
-                    i.setParetos(getParetos(dm));
+                    /* d.setParetos(getParetos(dm));*/
+                    List<Pareto> paretoList=new ArrayList<>();
+                    for (ParetoModel pm: dm.getParetoModels() ){
+                        Pareto p=new Pareto();
+                        p.setMotif(pm.getMotif());
+                        p.setPercentage(pm.getPercentage());
+                        p.setSkills(dd.getSkills());
+                        paretoList.add(p);
+                    }
+                    paretoRepo.saveAll(paretoList);
                 }
             }
-            dd.setSkills(i);
-            dateDataRepo.save(dd);
         }
     }
 
