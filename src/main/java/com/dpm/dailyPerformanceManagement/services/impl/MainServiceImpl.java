@@ -79,16 +79,7 @@ public class MainServiceImpl implements MainService {
         }
     }
 
- /*   private List<Pareto> getParetos(DeliveryModel dm) {
-        List<Pareto> paretoList=new ArrayList<>();
-        for (ParetoModel pm: dm.getParetoModels() ){
-            Pareto p=new Pareto();
-            p.setMotif(pm.getMotif());
-            p.setPercentage(pm.getPercentage());
-            paretoList.add(paretoRepo.save(p));
-        }
-        return paretoList;
-    }*/
+
 
     private ActionPlan getActionPlan(DeliveryModel dm) {
         ActionPlan ap=new ActionPlan();
@@ -426,6 +417,9 @@ public class MainServiceImpl implements MainService {
         }
     }
 
+
+
+
     @Override
     public List<DataRest> getDataBetween(Date startDate, Date endDate){
         List<DateData> dateData=dateDataRepo.findAllByDateDpmBetween(startDate, endDate);
@@ -443,6 +437,9 @@ public class MainServiceImpl implements MainService {
                 if (dl.getActionPlan()!=null){
                     dm.setApm(getActionPlanModel(dl.getActionPlan()));
                 }
+                if (!dl.getParetos().isEmpty()){
+                    dm.setParetoModels(getParetoModels(dl.getParetos()));
+                }
             }
             dms.add(dm);
             DeliveryModel dm1=new DeliveryModel();
@@ -454,6 +451,9 @@ public class MainServiceImpl implements MainService {
                 if (i.getActionPlan()!=null){
                     dm1.setApm(getActionPlanModel(i.getActionPlan()));
                 }
+                if (!i.getParetos().isEmpty()){
+                    dm1.setParetoModels(getParetoModels(i.getParetos()));
+                }
             }
             dms.add(dm1);
             DeliveryModel dm2=new DeliveryModel();
@@ -463,6 +463,9 @@ public class MainServiceImpl implements MainService {
                 dm2.setReal(dd.getKaizen().getRealValue());
                 if (dd.getKaizen().getActionPlan()!=null){
                     dm2.setApm(getActionPlanModel(dd.getKaizen().getActionPlan()));
+                }
+                if (!dd.getKaizen().getParetos().isEmpty()){
+                    dm2.setParetoModels(getParetoModels(dd.getKaizen().getParetos()));
                 }
             }
             dms.add(dm2);
@@ -474,6 +477,9 @@ public class MainServiceImpl implements MainService {
                 if (dd.getProductivity().getActionPlan()!=null){
                     dm3.setApm(getActionPlanModel(dd.getProductivity().getActionPlan()));
                 }
+                if (!dd.getProductivity().getParetos().isEmpty()){
+                    dm3.setParetoModels(getParetoModels(dd.getProductivity().getParetos()));
+                }
             }
             dms.add(dm3);
             DeliveryModel dm4=new DeliveryModel();
@@ -483,6 +489,9 @@ public class MainServiceImpl implements MainService {
                 dm4.setReal(dd.getQuality().getRealValue());
                 if (dd.getQuality().getActionPlan()!=null){
                     dm4.setApm(getActionPlanModel(dd.getQuality().getActionPlan()));
+                }
+                if (!dd.getQuality().getParetos().isEmpty()){
+                    dm4.setParetoModels(getParetoModels(dd.getQuality().getParetos()));
                 }
             }
             dms.add(dm4);
@@ -494,6 +503,9 @@ public class MainServiceImpl implements MainService {
                 if (dd.getSafety().getActionPlan()!=null){
                     dm5.setApm(getActionPlanModel(dd.getSafety().getActionPlan()));
                 }
+                if (!dd.getSafety().getParetos().isEmpty()){
+                    dm5.setParetoModels(getParetoModels(dd.getSafety().getParetos()));
+                }
             }
             dms.add(dm5);
             DeliveryModel dm6=new DeliveryModel();
@@ -504,6 +516,9 @@ public class MainServiceImpl implements MainService {
                 if (dd.getSkills().getActionPlan()!=null){
                     dm6.setApm(getActionPlanModel(dd.getSkills().getActionPlan()));
                 }
+                if (!dd.getSkills().getParetos().isEmpty()){
+                    dm6.setParetoModels(getParetoModels(dd.getSkills().getParetos()));
+                }
             }
 
             dms.add(dm6);
@@ -511,6 +526,17 @@ public class MainServiceImpl implements MainService {
             returnedData.add(sr);
         }
         return returnedData;
+    }
+
+    private static List<ParetoModel> getParetoModels(List<Pareto> dl) {
+        List<ParetoModel>pm=new ArrayList<>();
+        for (Pareto p: dl){
+            ParetoModel pmm=new ParetoModel();
+            pmm.setMotif(p.getMotif());
+            pmm.setPercentage(p.getPercentage());
+            pm.add(pmm);
+        }
+        return pm;
     }
 
     private static ActionPlanModel getActionPlanModel(ActionPlan actionPlan) {
