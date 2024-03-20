@@ -1,10 +1,13 @@
 package com.dpm.dailyPerformanceManagement.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity(name = "kaizen")
 @AllArgsConstructor
@@ -22,4 +25,7 @@ public class Kaizen {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ap_id", referencedColumnName = "id")
     private ActionPlan actionPlan;
+    @OneToMany(mappedBy = "kaizen", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Pareto> paretos;
 }
