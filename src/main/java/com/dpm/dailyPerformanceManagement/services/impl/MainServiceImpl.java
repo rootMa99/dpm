@@ -4,9 +4,11 @@ import com.dpm.dailyPerformanceManagement.domain.*;
 import com.dpm.dailyPerformanceManagement.models.ActionPlanModel;
 import com.dpm.dailyPerformanceManagement.models.DataRest;
 import com.dpm.dailyPerformanceManagement.models.DeliveryModel;
+import com.dpm.dailyPerformanceManagement.models.ParetoModel;
 import com.dpm.dailyPerformanceManagement.repositories.ActionPlanRepo;
 import com.dpm.dailyPerformanceManagement.repositories.DateDataRepo;
 import com.dpm.dailyPerformanceManagement.repositories.DeliveryRepo;
+import com.dpm.dailyPerformanceManagement.repositories.ParetoRepo;
 import com.dpm.dailyPerformanceManagement.services.MainService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,7 @@ public class MainServiceImpl implements MainService {
     DateDataRepo dateDataRepo;
     DeliveryRepo deliveryRepo;
     ActionPlanRepo actionPlanRepo;
+    ParetoRepo paretoRepo;
     @Override
     public void addDeliveryData(DeliveryModel dm){
         DateData dd= dateDataRepo.findByDateDpm(dm.getDate());
@@ -33,6 +36,11 @@ public class MainServiceImpl implements MainService {
             if (dm.getApm()!=null){
                 d.setActionPlan(getActionPlan(dm));
             }
+            if (dm.getParetoModels()!=null ){
+                if (!dm.getParetoModels().isEmpty()){
+                    d.setParetos(getParetos(dm));
+                }
+            }
             dd2.setDelivery(d);
             dateDataRepo.save(dd2);
         }else {
@@ -42,9 +50,25 @@ public class MainServiceImpl implements MainService {
             if (dm.getApm()!=null){
                 d.setActionPlan(getActionPlan(dm));
             }
+            if (dm.getParetoModels()!=null ){
+                if (!dm.getParetoModels().isEmpty()){
+                    d.setParetos(getParetos(dm));
+                }
+            }
             dd.setDelivery(d);
             dateDataRepo.save(dd);
         }
+    }
+
+    private List<Pareto> getParetos(DeliveryModel dm) {
+        List<Pareto> paretoList=new ArrayList<>();
+        for (ParetoModel pm: dm.getParetoModels() ){
+            Pareto p=new Pareto();
+            p.setMotif(pm.getMotif());
+            p.setPercentage(pm.getPercentage());
+            paretoList.add(paretoRepo.save(p));
+        }
+        return paretoList;
     }
 
     private ActionPlan getActionPlan(DeliveryModel dm) {
@@ -70,6 +94,11 @@ public class MainServiceImpl implements MainService {
             if (dm.getApm()!=null){
                 inventory.setActionPlan(getActionPlan(dm));
             }
+            if (dm.getParetoModels()!=null ){
+                if (!dm.getParetoModels().isEmpty()){
+                    inventory.setParetos(getParetos(dm));
+                }
+            }
             dd2.setInventory(inventory);
             dateDataRepo.save(dd2);
         }else {
@@ -78,6 +107,11 @@ public class MainServiceImpl implements MainService {
             i.setTargetValue(dm.getTarget());
             if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
+            }
+            if (dm.getParetoModels()!=null ){
+                if (!dm.getParetoModels().isEmpty()){
+                    i.setParetos(getParetos(dm));
+                }
             }
             dd.setInventory(i);
             dateDataRepo.save(dd);
@@ -95,6 +129,11 @@ public class MainServiceImpl implements MainService {
             if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
             }
+            if (dm.getParetoModels()!=null ){
+                if (!dm.getParetoModels().isEmpty()){
+                    i.setParetos(getParetos(dm));
+                }
+            }
             dd2.setKaizen(i);
             dateDataRepo.save(dd2);
         }else {
@@ -103,6 +142,11 @@ public class MainServiceImpl implements MainService {
             i.setTargetValue(dm.getTarget());
             if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
+            }
+            if (dm.getParetoModels()!=null ){
+                if (!dm.getParetoModels().isEmpty()){
+                    i.setParetos(getParetos(dm));
+                }
             }
             dd.setKaizen(i);
             dateDataRepo.save(dd);
@@ -120,6 +164,11 @@ public class MainServiceImpl implements MainService {
             if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
             }
+            if (dm.getParetoModels()!=null ){
+                if (!dm.getParetoModels().isEmpty()){
+                    i.setParetos(getParetos(dm));
+                }
+            }
             dd2.setProductivity(i);
             dateDataRepo.save(dd2);
         }else {
@@ -128,6 +177,11 @@ public class MainServiceImpl implements MainService {
             i.setTargetValue(dm.getTarget());
             if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
+            }
+            if (dm.getParetoModels()!=null ){
+                if (!dm.getParetoModels().isEmpty()){
+                    i.setParetos(getParetos(dm));
+                }
             }
             dd.setProductivity(i);
             dateDataRepo.save(dd);
@@ -145,6 +199,11 @@ public class MainServiceImpl implements MainService {
             if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
             }
+            if (dm.getParetoModels()!=null ){
+                if (!dm.getParetoModels().isEmpty()){
+                    i.setParetos(getParetos(dm));
+                }
+            }
             dd2.setQuality(i);
             dateDataRepo.save(dd2);
         }else {
@@ -153,6 +212,11 @@ public class MainServiceImpl implements MainService {
             i.setTargetValue(dm.getTarget());
             if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
+            }
+            if (dm.getParetoModels()!=null ){
+                if (!dm.getParetoModels().isEmpty()){
+                    i.setParetos(getParetos(dm));
+                }
             }
             dd.setQuality(i);
             dateDataRepo.save(dd);
@@ -170,6 +234,11 @@ public class MainServiceImpl implements MainService {
             if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
             }
+            if (dm.getParetoModels()!=null ){
+                if (!dm.getParetoModels().isEmpty()){
+                    i.setParetos(getParetos(dm));
+                }
+            }
             dd2.setSafety(i);
             dateDataRepo.save(dd2);
         }else {
@@ -178,6 +247,11 @@ public class MainServiceImpl implements MainService {
             i.setTargetValue(dm.getTarget());
             if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
+            }
+            if (dm.getParetoModels()!=null ){
+                if (!dm.getParetoModels().isEmpty()){
+                    i.setParetos(getParetos(dm));
+                }
             }
             dd.setSafety(i);
             dateDataRepo.save(dd);
@@ -195,6 +269,11 @@ public class MainServiceImpl implements MainService {
             if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
             }
+            if (dm.getParetoModels()!=null ){
+                if (!dm.getParetoModels().isEmpty()){
+                    i.setParetos(getParetos(dm));
+                }
+            }
             dd2.setSkills(i);
             dateDataRepo.save(dd2);
         }else {
@@ -203,6 +282,11 @@ public class MainServiceImpl implements MainService {
             i.setTargetValue(dm.getTarget());
             if (dm.getApm()!=null){
                 i.setActionPlan(getActionPlan(dm));
+            }
+            if (dm.getParetoModels()!=null ){
+                if (!dm.getParetoModels().isEmpty()){
+                    i.setParetos(getParetos(dm));
+                }
             }
             dd.setSkills(i);
             dateDataRepo.save(dd);
