@@ -585,20 +585,39 @@ public class MainServiceImpl implements MainService {
 
     @Override
     public void addKpiOwner(String kpiOwn, String name, String coName, MultipartFile file) throws IOException {
-        Files fileEntity= uploadFile(file);
-        String fileDownloadUri =
-                ServletUriComponentsBuilder.fromCurrentContextPath().path("/dpm").path("/downloadFile/").path(
-                        kpiOwn).toUriString();
-        fileEntity.setFileDownloadUri(fileDownloadUri);
-        fileEntity.setFileName(name);
-        fileEntity.setFileId(kpiOwn);
-        KpiOwner kpiOwner=new KpiOwner();
-        kpiOwner.setKpiOwn(kpiOwn);
-        kpiOwner.setName(name);
-        kpiOwner.setCoName(coName);
-        kpiOwner=kpiOwnerRepo.save(kpiOwner);
-        fileEntity.setKpiOwner(kpiOwner);
-        filesRepo.save(fileEntity);
+        Files filesf=filesRepo.findByFileId(kpiOwn);
+        if (filesf==null){
+            Files fileEntity= uploadFile(file);
+            String fileDownloadUri =
+                    ServletUriComponentsBuilder.fromCurrentContextPath().path("/dpm").path("/downloadFile/").path(
+                            kpiOwn).toUriString();
+            fileEntity.setFileDownloadUri(fileDownloadUri);
+            fileEntity.setFileName(name);
+            fileEntity.setFileId(kpiOwn);
+            KpiOwner kpiOwner=new KpiOwner();
+            kpiOwner.setKpiOwn(kpiOwn);
+            kpiOwner.setName(name);
+            kpiOwner.setCoName(coName);
+            kpiOwner=kpiOwnerRepo.save(kpiOwner);
+            fileEntity.setKpiOwner(kpiOwner);
+            filesRepo.save(fileEntity);
+        }else {
+            String fileDownloadUri =
+                    ServletUriComponentsBuilder.fromCurrentContextPath().path("/dpm").path("/downloadFile/").path(
+                            kpiOwn).toUriString();
+            filesf.setFileDownloadUri(fileDownloadUri);
+            filesf.setFileName(name);
+            filesf.setFileId(kpiOwn);
+            KpiOwner kpiOwner=new KpiOwner();
+            kpiOwner.setId(filesf.getKpiOwner().getId());
+            kpiOwner.setKpiOwn(kpiOwn);
+            kpiOwner.setName(name);
+            kpiOwner.setCoName(coName);
+            kpiOwner=kpiOwnerRepo.save(kpiOwner);
+            filesf.setKpiOwner(kpiOwner);
+            filesRepo.save(filesf);
+        }
+
     }
 
 
