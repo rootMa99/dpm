@@ -434,6 +434,7 @@ public class MainServiceImpl implements MainService {
             dm.setNameData("delivery");
             if (dd.getDelivery()!=null){
                 Delivery dl=dd.getDelivery();
+                dm.setDate(dl.getDateData().getDateDpm());
                 dm.setTarget(dl.getTargetValue());
                 dm.setReal(dl.getRealValue());
                 if (dl.getActionPlan()!=null){
@@ -448,6 +449,7 @@ public class MainServiceImpl implements MainService {
             dm1.setNameData("inventory");
             if (dd.getInventory()!=null){
                 Inventory i=dd.getInventory();
+                dm1.setDate(i.getDateData().getDateDpm());
                 dm1.setTarget(i.getTargetValue());
                 dm1.setReal(i.getRealValue());
                 if (i.getActionPlan()!=null){
@@ -461,6 +463,7 @@ public class MainServiceImpl implements MainService {
             DeliveryModel dm2=new DeliveryModel();
             dm2.setNameData("kaizen");
             if (dd.getKaizen()!=null){
+                dm2.setDate(dd.getDateDpm());
                 dm2.setTarget(dd.getKaizen().getTargetValue());
                 dm2.setReal(dd.getKaizen().getRealValue());
                 if (dd.getKaizen().getActionPlan()!=null){
@@ -474,6 +477,7 @@ public class MainServiceImpl implements MainService {
             DeliveryModel dm3=new DeliveryModel();
             dm3.setNameData("productivity");
             if (dd.getProductivity()!=null){
+                dm3.setDate(dd.getDateDpm());
                 dm3.setTarget(dd.getProductivity().getTargetValue());
                 dm3.setReal(dd.getProductivity().getRealValue());
                 if (dd.getProductivity().getActionPlan()!=null){
@@ -487,6 +491,7 @@ public class MainServiceImpl implements MainService {
             DeliveryModel dm4=new DeliveryModel();
             dm4.setNameData("quality");
             if (dd.getQuality()!=null){
+                dm4.setDate(dd.getDateDpm());
                 dm4.setTarget(dd.getQuality().getTargetValue());
                 dm4.setReal(dd.getQuality().getRealValue());
                 if (dd.getQuality().getActionPlan()!=null){
@@ -500,6 +505,7 @@ public class MainServiceImpl implements MainService {
             DeliveryModel dm5=new DeliveryModel();
             dm5.setNameData("safety");
             if (dd.getSafety()!=null){
+                dm5.setDate(dd.getDateDpm());
                 dm5.setTarget(dd.getSafety().getTargetValue());
                 dm5.setReal(dd.getSafety().getRealValue());
                 if (dd.getSafety().getActionPlan()!=null){
@@ -513,6 +519,8 @@ public class MainServiceImpl implements MainService {
             DeliveryModel dm6=new DeliveryModel();
             dm6.setNameData("skills");
             if (dd.getSkills()!=null){
+
+                dm6.setDate(dd.getDateDpm());
                 dm6.setTarget(dd.getSkills().getTargetValue());
                 dm6.setReal(dd.getSkills().getRealValue());
                 if (dd.getSkills().getActionPlan()!=null){
