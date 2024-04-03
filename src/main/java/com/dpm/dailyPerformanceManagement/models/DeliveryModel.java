@@ -11,6 +11,7 @@ public class DeliveryModel {
     private String nameData;
     private double real;
     private double target;
+    private String name;
     private ActionPlanModel apm;
     private List<ParetoModel> paretoModels;
 }

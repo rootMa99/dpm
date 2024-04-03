@@ -33,23 +33,26 @@ public class MainServiceImpl implements MainService {
         if (dd == null) {
             DateData dd2 = new DateData();
             dd2.setDateDpm(dm.getDate());
-            Delivery d = new Delivery();
-            d.setRealValue(dm.getReal());
-            d.setTargetValue(dm.getTarget());
+            List<Delivery> d = new ArrayList<>();
+            Delivery dl= new Delivery();
+            dl.setRealValue(dm.getReal());
+            dl.setTargetValue(dm.getTarget());
             if (dm.getApm() != null) {
-                d.setActionPlan(getActionPlan(dm));
+                dl.setActionPlan(getActionPlan(dm));
             }
+            d.add(dl);
             dd2.setDelivery(d);
             dd = dateDataRepo.save(dd2);
             if (dm.getParetoModels() != null) {
                 if (!dm.getParetoModels().isEmpty()) {
-                    /* d.setParetos(getParetos(dm));*/
                     List<Pareto> paretoList = new ArrayList<>();
                     for (ParetoModel pm : dm.getParetoModels()) {
                         Pareto p = new Pareto();
                         p.setMotif(pm.getMotif());
                         p.setPercentage(pm.getPercentage());
-                        p.setDelivery(dd.getDelivery());
+                        for (Delivery ds :dd.getDelivery() ){
+                            p.setDelivery(ds);
+                        }
                         paretoList.add(p);
                     }
                     paretoRepo.saveAll(paretoList);
@@ -63,17 +66,20 @@ public class MainServiceImpl implements MainService {
             if (dm.getApm() != null) {
                 d.setActionPlan(getActionPlan(dm));
             }
-            dd.setDelivery(d);
+            List<Delivery> dlp= dd.getDelivery();
+            dlp.add(d);
+            dd.setDelivery(dlp);
             dd = dateDataRepo.save(dd);
             if (dm.getParetoModels() != null) {
                 if (!dm.getParetoModels().isEmpty()) {
-                    /* d.setParetos(getParetos(dm));*/
                     List<Pareto> paretoList = new ArrayList<>();
                     for (ParetoModel pm : dm.getParetoModels()) {
                         Pareto p = new Pareto();
                         p.setMotif(pm.getMotif());
                         p.setPercentage(pm.getPercentage());
-                        p.setDelivery(dd.getDelivery());
+                        for (Delivery ds :dd.getDelivery() ){
+                            p.setDelivery(ds);
+                        }
                         paretoList.add(p);
                     }
                     paretoRepo.saveAll(paretoList);
@@ -215,7 +221,9 @@ public class MainServiceImpl implements MainService {
             if (dm.getApm() != null) {
                 i.setActionPlan(getActionPlan(dm));
             }
-            dd2.setProductivity(i);
+            List<Productivity> ps= new ArrayList<>();
+            ps.add(i);
+            dd2.setProductivity(ps);
             dd = dateDataRepo.save(dd2);
             if (dm.getParetoModels() != null) {
                 if (!dm.getParetoModels().isEmpty()) {
@@ -225,7 +233,9 @@ public class MainServiceImpl implements MainService {
                         Pareto p = new Pareto();
                         p.setMotif(pm.getMotif());
                         p.setPercentage(pm.getPercentage());
-                        p.setProductivity(dd.getProductivity());
+                        for (Productivity pv:dd.getProductivity() ){
+                            p.setProductivity(pv);
+                        }
                         paretoList.add(p);
                     }
                     paretoRepo.saveAll(paretoList);
@@ -235,10 +245,13 @@ public class MainServiceImpl implements MainService {
             Productivity i = new Productivity();
             i.setRealValue(dm.getReal());
             i.setTargetValue(dm.getTarget());
+            i.setName(dm.getName());
             if (dm.getApm() != null) {
                 i.setActionPlan(getActionPlan(dm));
             }
-            dd.setProductivity(i);
+            List<Productivity> pl= dd.getProductivity();
+            pl.add(i);
+            dd.setProductivity(pl);
             dd = dateDataRepo.save(dd);
             if (dm.getParetoModels() != null) {
                 if (!dm.getParetoModels().isEmpty()) {
@@ -248,7 +261,10 @@ public class MainServiceImpl implements MainService {
                         Pareto p = new Pareto();
                         p.setMotif(pm.getMotif());
                         p.setPercentage(pm.getPercentage());
-                        p.setProductivity(dd.getProductivity());
+                        for (Productivity pvr:dd.getProductivity()){
+                            p.setProductivity(pvr);
+                        }
+
                         paretoList.add(p);
                     }
                     paretoRepo.saveAll(paretoList);
@@ -436,16 +452,19 @@ public class MainServiceImpl implements MainService {
             DeliveryModel dm = new DeliveryModel();
             dm.setNameData("delivery");
             if (dd.getDelivery() != null) {
-                Delivery dl = dd.getDelivery();
-                dm.setDate(dl.getDateData().getDateDpm());
-                dm.setTarget(dl.getTargetValue());
-                dm.setReal(dl.getRealValue());
-                if (dl.getActionPlan() != null) {
-                    dm.setApm(getActionPlanModel(dl.getActionPlan()));
+                List<Delivery> dls = dd.getDelivery();
+                for (Delivery dl: dls){
+                    dm.setDate(dl.getDateData().getDateDpm());
+                    dm.setTarget(dl.getTargetValue());
+                    dm.setReal(dl.getRealValue());
+                    if (dl.getActionPlan() != null) {
+                        dm.setApm(getActionPlanModel(dl.getActionPlan()));
+                    }
+                    if (!dl.getParetos().isEmpty()) {
+                        dm.setParetoModels(getParetoModels(dl.getParetos()));
+                    }
                 }
-                if (!dl.getParetos().isEmpty()) {
-                    dm.setParetoModels(getParetoModels(dl.getParetos()));
-                }
+
             }
             dms.add(dm);
             DeliveryModel dm1 = new DeliveryModel();

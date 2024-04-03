@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 
 @Entity(name = "dateData")
@@ -21,7 +22,7 @@ public class DateData {
     private Date dateDpm;
     @OneToMany(mappedBy = "dateData", cascade = CascadeType.ALL)
     @JsonIgnore
-    private Delivery delivery;
+    private List<Delivery> delivery;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "inventory_id", referencedColumnName = "id")
     private Inventory inventory;
@@ -30,7 +31,7 @@ public class DateData {
     private Kaizen kaizen;
     @OneToMany(mappedBy = "dateData", cascade = CascadeType.ALL)
     @JsonIgnore
-    private Productivity productivity;
+    private List<Productivity> productivity;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "quality_id", referencedColumnName = "id")
     private Quality quality;
