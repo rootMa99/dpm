@@ -18,25 +18,25 @@ public class DateData {
     @Temporal(TemporalType.DATE)
     @Column(name = "date")
     private Date dateDpm;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "delivery_id" , referencedColumnName = "id")
     private Delivery delivery;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "inventory_id", referencedColumnName = "id")
     private Inventory inventory;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "kaizen_id", referencedColumnName = "id")
     private Kaizen kaizen;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "productivity_id",referencedColumnName = "id")
     private Productivity productivity;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "quality_id", referencedColumnName = "id")
     private Quality quality;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "safety_id", referencedColumnName = "id")
     private Safety safety;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "skills_id", referencedColumnName = "id")
     private Skills skills;
 }
