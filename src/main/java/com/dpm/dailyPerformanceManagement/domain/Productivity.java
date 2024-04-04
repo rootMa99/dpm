@@ -20,7 +20,10 @@ public class Productivity {
     private Long id;
     private double realValue;
     private double targetValue;
-    @OneToOne(mappedBy = "productivity")
+    private String name;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dateData_id")
     private DateData dateData;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ap_id", referencedColumnName = "id")

@@ -1,9 +1,11 @@
 package com.dpm.dailyPerformanceManagement.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 
 @Entity(name = "dateData")
@@ -18,18 +20,18 @@ public class DateData {
     @Temporal(TemporalType.DATE)
     @Column(name = "date")
     private Date dateDpm;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "delivery_id" , referencedColumnName = "id")
-    private Delivery delivery;
+    @OneToMany(mappedBy = "dateData", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Delivery> delivery;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "inventory_id", referencedColumnName = "id")
     private Inventory inventory;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "kaizen_id", referencedColumnName = "id")
     private Kaizen kaizen;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "productivity_id",referencedColumnName = "id")
-    private Productivity productivity;
+    @OneToMany(mappedBy = "dateData", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Productivity> productivity;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "quality_id", referencedColumnName = "id")
     private Quality quality;

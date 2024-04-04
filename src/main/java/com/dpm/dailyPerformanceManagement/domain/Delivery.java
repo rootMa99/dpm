@@ -20,7 +20,9 @@ public class Delivery {
     private Long id;
     private double realValue;
     private double targetValue;
-    @OneToOne(mappedBy = "delivery")
+    private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dateData_id")
     private DateData dateData;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ap_id", referencedColumnName = "id")
