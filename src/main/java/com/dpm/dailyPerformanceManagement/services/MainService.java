@@ -33,5 +33,7 @@ public interface MainService {
     Files uploadFile(MultipartFile file) throws IOException;
     void addKpiOwner(String kpiOwn, String name, String coName, MultipartFile file) throws IOException;
 
+    void editOwnerName(String kpiOwn, String name, String cn);
+
     List<KpiRest> getAllKpiOwner();
 }

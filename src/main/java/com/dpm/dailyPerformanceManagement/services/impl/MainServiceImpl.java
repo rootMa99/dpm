@@ -596,8 +596,8 @@ public class MainServiceImpl implements MainService {
     @Override
     public void addKpiOwner(String kpiOwn, String name, String coName, MultipartFile file) throws IOException {
         Files filesf = filesRepo.findByFileId(kpiOwn);
+        Files fileEntity = uploadFile(file);
         if (filesf == null) {
-            Files fileEntity = uploadFile(file);
             String fileDownloadUri =
                     ServletUriComponentsBuilder.fromCurrentContextPath().path("/dpm").path("/downloadFile/").path(
                             kpiOwn).toUriString();
@@ -618,6 +618,7 @@ public class MainServiceImpl implements MainService {
             filesf.setFileDownloadUri(fileDownloadUri);
             filesf.setFileName(name);
             filesf.setFileId(kpiOwn);
+            filesf.setData(fileEntity.getData());
             KpiOwner kpiOwner = new KpiOwner();
             kpiOwner.setId(filesf.getKpiOwner().getId());
             kpiOwner.setKpiOwn(kpiOwn);
@@ -628,6 +629,16 @@ public class MainServiceImpl implements MainService {
             filesRepo.save(filesf);
         }
 
+    }
+
+@Override
+    public void editOwnerName(String kpiOwn ,String name, String cn){
+        KpiOwner ko= kpiOwnerRepo.findByKpiOwn(kpiOwn);
+        if (ko!=null){
+            ko.setName(name);
+            ko.setCoName(cn);
+            kpiOwnerRepo.save(ko);
+        }
     }
 
 
